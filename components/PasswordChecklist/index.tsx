@@ -51,11 +51,6 @@ export default function PasswordChecklist({
     if (pass.length === 1) {
       setValidNoConsecutiveLetters(true)
     } else if (pass.length > 1) {
-      console.log(
-        pass.charCodeAt(pass.length - 1),
-        pass.charCodeAt(pass.length - 2)
-      )
-
       //is consecutive, do not allow it
       if (
         pass.charCodeAt(pass.length - 1) - pass.charCodeAt(pass.length - 2) ===
@@ -63,9 +58,18 @@ export default function PasswordChecklist({
       ) {
         setValidNoConsecutiveLetters(false)
       } else {
-        setValidNoConsecutiveLetters(true)
+        console.log("here")
+        for (let i = pass.length; i > 0; i--) {
+          if (pass.charCodeAt(i - 1) - pass.charCodeAt(i - 2) === 1) {
+            setValidNoConsecutiveLetters(false)
+            break
+          } else {
+            setValidNoConsecutiveLetters(true)
+          }
+        }
       }
     } else {
+      //length is zero
       setValidNoConsecutiveLetters(false)
     }
   }
